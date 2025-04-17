@@ -4,6 +4,7 @@ import android.app.Application
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
+import uz.orifjon.wedrivetask.di.cacheModule
 import uz.orifjon.wedrivetask.di.networkModule
 import uz.orifjon.wedrivetask.di.repositoryModule
 import uz.orifjon.wedrivetask.di.viewModelModule
@@ -21,7 +22,8 @@ class App : Application() {
             modules(
                 viewModelModule,
                 networkModule,
-                repositoryModule
+                repositoryModule,
+                cacheModule
             )
         }
     }
