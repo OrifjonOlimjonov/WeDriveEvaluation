@@ -2,7 +2,6 @@ package uz.orifjon.wedrivetask.ui.core
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -21,6 +20,7 @@ import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import uz.orifjon.wedrivetask.R
+import uz.orifjon.wedrivetask.ui.theme.roundedShape12
 import uz.orifjon.wedrivetask.ui.theme.roundedShape16
 
 @Composable
@@ -30,14 +30,14 @@ fun IdentificationRequiredView(
 
     Box(
         modifier = modifier
-            .clip(roundedShape16)
+            .clip(roundedShape12)
             .background(White)
             .padding(8.dp)
     ) {
         Row(
             modifier = Modifier
-                .height(72.dp)
-                .border(1.dp, Black, shape = roundedShape16)
+                .height(60.dp)
+                .border(1.dp, Black, shape = roundedShape12)
                 .padding(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {

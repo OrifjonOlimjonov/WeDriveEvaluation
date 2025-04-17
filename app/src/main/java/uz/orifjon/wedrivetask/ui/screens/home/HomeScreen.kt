@@ -24,6 +24,7 @@ import uz.orifjon.wedrivetask.ui.core.AppBar
 import uz.orifjon.wedrivetask.ui.core.CardView
 import uz.orifjon.wedrivetask.ui.core.IdentificationRequiredView
 import uz.orifjon.wedrivetask.ui.core.PaymentTypeView
+import uz.orifjon.wedrivetask.ui.core.Spacer8
 
 
 @Serializable
@@ -66,15 +67,21 @@ private fun MainContent() {
             textBody = "0,000.00"
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer8()
 
 
         IdentificationRequiredView()
 
-        AddMenuItem()
-        PaymentTypeView {
-
-        }
+        AddMenuItem(
+            text = R.string.add_promo_code,
+            icon = R.drawable.ic_promokod
+        )
+        PaymentTypeView(icon = R.drawable.ic_cash, text = "Naqd") {}
+        PaymentTypeView(icon = R.drawable.ic_card, text = "Karta") {}
+        AddMenuItem(
+            text = R.string.add_new_card,
+            icon = R.drawable.ic_add_card
+        )
     }
 
 }
