@@ -19,9 +19,11 @@ import androidx.navigation.NavController
 import kotlinx.serialization.Serializable
 import org.koin.androidx.compose.koinViewModel
 import uz.orifjon.wedrivetask.R
+import uz.orifjon.wedrivetask.ui.core.AddMenuItem
 import uz.orifjon.wedrivetask.ui.core.AppBar
 import uz.orifjon.wedrivetask.ui.core.CardView
 import uz.orifjon.wedrivetask.ui.core.IdentificationRequiredView
+import uz.orifjon.wedrivetask.ui.core.PaymentTypeView
 
 
 @Serializable
@@ -35,7 +37,6 @@ fun HomeScreen(
 ) {
 
     val state = viewModel.state.collectAsState()
-
 
     Scaffold(
         topBar = {
@@ -70,6 +71,10 @@ private fun MainContent() {
 
         IdentificationRequiredView()
 
+        AddMenuItem()
+        PaymentTypeView {
+
+        }
     }
 
 }

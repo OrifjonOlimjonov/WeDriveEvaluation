@@ -5,6 +5,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import uz.orifjon.wedrivetask.R
 
@@ -15,7 +16,7 @@ fun AddMenuItem(
 ) {
 
     Row {
-        Icon(painter = painterResource(R.drawable.ic_launcher_background), null)
+        Icon(painter = painterResource(R.drawable.ic_card), null, tint = Color.Unspecified)
         Text("0sdsad")
         Icon(painter = painterResource(R.drawable.ic_launcher_background), null)
     }
