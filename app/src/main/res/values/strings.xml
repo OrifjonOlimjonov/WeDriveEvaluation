@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">WeDriveTask</string>
     <string name="wallet">Wallet</string>
+    <string name="balance">Balance</string>
     <string name="add_promo_code">Add Promo code</string>
     <string name="add_new_card">Add new card</string>
 </resources>

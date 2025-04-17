@@ -63,7 +63,7 @@ private fun MainContent() {
             .background(White)
     ) {
         CardView(
-            title = "Balance",
+            title = stringResource(R.string.balance),
             textBody = "0,000.00"
         )
 
