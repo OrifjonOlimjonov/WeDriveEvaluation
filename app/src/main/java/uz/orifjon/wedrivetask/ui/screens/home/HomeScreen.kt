@@ -25,6 +25,8 @@ import uz.orifjon.wedrivetask.ui.core.CardView
 import uz.orifjon.wedrivetask.ui.core.IdentificationRequiredView
 import uz.orifjon.wedrivetask.ui.core.PaymentTypeView
 import uz.orifjon.wedrivetask.ui.core.Spacer8
+import uz.orifjon.wedrivetask.ui.screens.home.adding_card.AddingCardRoute
+import uz.orifjon.wedrivetask.ui.screens.home.adding_card.AddingCardScreen
 
 
 @Serializable
@@ -47,7 +49,9 @@ fun HomeScreen(
         },
         content = { paddingValues ->
             Box(modifier = Modifier.padding(paddingValues)) {
-                MainContent()
+                MainContent(onNavigateAddingCard = {
+                    navController.navigate(AddingCardRoute)
+                })
             }
         }
     )
@@ -55,7 +59,9 @@ fun HomeScreen(
 }
 
 @Composable
-private fun MainContent() {
+private fun MainContent(
+    onNavigateAddingCard: () -> Unit
+) {
 
     Column(
         modifier = Modifier
@@ -74,13 +80,21 @@ private fun MainContent() {
 
         AddMenuItem(
             text = R.string.add_promo_code,
-            icon = R.drawable.ic_promokod
+            icon = R.drawable.ic_promokod,
+            onClickListener = {
+
+            }
         )
-        PaymentTypeView(icon = R.drawable.ic_cash, text = "Naqd") {}
-        PaymentTypeView(icon = R.drawable.ic_card, text = "Karta") {}
+        PaymentTypeView(icon = R.drawable.ic_cash, text = stringResource(R.string.cash)) {}
+        PaymentTypeView(
+            icon = R.drawable.ic_card,
+            text = stringResource(R.string.card_with_last_number, "7777")
+        ) {}
         AddMenuItem(
             text = R.string.add_new_card,
-            icon = R.drawable.ic_add_card
+            icon = R.drawable.ic_add_card,
+            onClickListener = onNavigateAddingCard
+
         )
     }
 

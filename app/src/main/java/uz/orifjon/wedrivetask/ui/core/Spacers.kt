@@ -1,5 +1,6 @@
 package uz.orifjon.wedrivetask.ui.core
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
@@ -7,12 +8,15 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -86,9 +90,9 @@ fun SpacerWidth80(){
 }
 
 @Composable
-fun SpacerStatusBarPadding() {
+fun SpacerStatusBarPadding(color:Color = White) {
     val topStatusBarHeight = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
-    Spacer(modifier = Modifier.size(topStatusBarHeight))
+    Spacer(modifier = Modifier.fillMaxWidth().height(topStatusBarHeight).background(color))
 }
 
 @Composable

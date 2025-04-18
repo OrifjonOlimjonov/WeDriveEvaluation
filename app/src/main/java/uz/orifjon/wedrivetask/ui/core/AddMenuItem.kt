@@ -2,6 +2,7 @@ package uz.orifjon.wedrivetask.ui.core
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
@@ -28,6 +29,7 @@ fun AddMenuItem(
     modifier: Modifier = Modifier,
     icon: Int = R.drawable.ic_card,
     text: Int = R.string.app_name,
+    onClickListener: () -> Unit
 ) {
 
     Box(
@@ -35,7 +37,8 @@ fun AddMenuItem(
             .clip(roundedShape12)
             .background(White)
             .padding(8.dp)
-            .shadow(1.dp,roundedShape12)
+            .shadow(1.dp, roundedShape12)
+            .clickable(onClick = onClickListener)
     ) {
         Row(
             modifier = Modifier
