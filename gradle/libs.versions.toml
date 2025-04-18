@@ -6,6 +6,7 @@ junit = "4.13.2"
 secrets = "2.0.1"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
+chucker = "4.0.0"
 ktor = "2.3.8"
 navigationCompose = "2.8.9"
 koinAndroid = "4.0.0"
@@ -50,6 +51,9 @@ koin-core = { module = "io.insert-koin:koin-core", version.ref = "koinCore" }
 #navigation
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 
+# Chucker
+chuckerteam-chucker-debug = { module = "com.github.chuckerteam.chucker:library", version.ref = "chucker" }
+chuckerteam-chucker-release = { module = "com.github.chuckerteam.chucker:library-no-op", version.ref = "chucker" }
 
 [plugins]
 secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secrets" }

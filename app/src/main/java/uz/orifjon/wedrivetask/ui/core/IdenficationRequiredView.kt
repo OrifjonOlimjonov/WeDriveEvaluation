@@ -41,6 +41,7 @@ fun IdentificationRequiredView(
                 .padding(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
+            Spacer8()
             Icon(
                 modifier = Modifier,
                 painter = painterResource(R.drawable.ic_info_circle),
@@ -56,7 +57,7 @@ fun IdentificationRequiredView(
                 contentDescription = null,
                 tint = Color.Unspecified
             )
-
+            Spacer8()
         }
     }
 

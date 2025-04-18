@@ -7,7 +7,6 @@ import uz.orifjon.wedrivetask.navigation.AppHost
 @Composable
 fun WeDriveComposeApp(navController: NavHostController) {
 
-
     AppHost(navController)
 
 }

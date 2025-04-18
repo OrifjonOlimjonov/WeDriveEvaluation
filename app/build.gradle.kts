@@ -84,4 +84,10 @@ dependencies {
     implementation(libs.koin.core)
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
+
+
+    //Chucker
+
+    debugImplementation(libs.chuckerteam.chucker.debug)
+    releaseImplementation(libs.chuckerteam.chucker.release)
 }

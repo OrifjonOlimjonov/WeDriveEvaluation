@@ -15,6 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.White
@@ -36,6 +37,7 @@ fun PaymentTypeView(
             .clip(roundedShape12)
             .background(White)
             .padding(8.dp)
+            .shadow(1.dp, roundedShape12)
     ) {
         Row(
             modifier = Modifier
@@ -45,6 +47,8 @@ fun PaymentTypeView(
                 .padding(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
+
+            Spacer8()
             Icon(painter = painterResource(icon), null, tint = Color.Unspecified)
             Spacer8()
             Text(text = text, color = Black)
@@ -55,6 +59,7 @@ fun PaymentTypeView(
                     checked.value = it
                 }
             )
+            Spacer8()
         }
     }
 }
