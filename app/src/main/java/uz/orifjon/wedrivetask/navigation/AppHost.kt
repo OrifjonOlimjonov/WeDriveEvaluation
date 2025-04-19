@@ -6,7 +6,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import uz.orifjon.wedrivetask.ui.screens.home.graph.HomeGraph
+import uz.orifjon.wedrivetask.navigation.graph.HomeGraph
 import uz.orifjon.wedrivetask.navigation.graph_builder.setHomeGraph
 
 private const val TRANSITION_ANIMATION_DURATION_IN_MS = 100

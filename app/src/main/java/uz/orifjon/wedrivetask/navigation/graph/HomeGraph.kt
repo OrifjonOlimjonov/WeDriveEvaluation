@@ -1,4 +1,4 @@
-package uz.orifjon.wedrivetask.ui.screens.home.graph
+package uz.orifjon.wedrivetask.navigation.graph
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder

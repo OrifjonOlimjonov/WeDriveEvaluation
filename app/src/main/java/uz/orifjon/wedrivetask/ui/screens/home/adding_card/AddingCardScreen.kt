@@ -29,6 +29,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -49,8 +50,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import kotlinx.serialization.Serializable
+import org.koin.androidx.compose.koinViewModel
 import uz.orifjon.wedrivetask.R
 import uz.orifjon.wedrivetask.ui.core.AppBar
 import uz.orifjon.wedrivetask.ui.core.CardView
@@ -60,6 +63,7 @@ import uz.orifjon.wedrivetask.ui.core.Spacer16
 import uz.orifjon.wedrivetask.ui.core.Spacer32
 import uz.orifjon.wedrivetask.ui.core.Spacer8
 import uz.orifjon.wedrivetask.ui.core.SpacerStatusBarPadding
+import uz.orifjon.wedrivetask.ui.core.keyboards.KeypadKey
 import uz.orifjon.wedrivetask.ui.core.keyboards.NumberKeyboardView
 import uz.orifjon.wedrivetask.ui.theme.CardBackgroundColor
 import uz.orifjon.wedrivetask.ui.theme.roundedShape12
@@ -72,15 +76,26 @@ data object AddingCardRoute
 
 @Composable
 fun AddingCardScreen(
-    navController: NavController
+    navController: NavController,
+    viewModel: AddingCardViewModel = koinViewModel()
 ) {
+
+
+    val state = viewModel.state.collectAsState().value
+
 
     Scaffold(
         topBar = {
             AddingCardTopBar(onClickBack = navController::popBackStack)
         },
         content = { paddingValues ->
-            AddingCardContent(paddingValues)
+            AddingCardContent(
+                paddingValues,
+                state = state,
+                onKeypad = viewModel::onKeypadKey,
+                onCardNumberValueChange = viewModel::changeCardNumberValue,
+                onExpiredDateValueChange = viewModel::changeExpiredDateValue
+            )
         }
     )
 
@@ -89,14 +104,29 @@ fun AddingCardScreen(
 
 
 @Composable
-fun AddingCardContent(paddingValues: PaddingValues) {
+fun AddingCardContent(
+    paddingValues: PaddingValues, state: AddingCardState,
+    onKeypad: (KeypadKey) -> Unit,
+    onCardNumberValueChange: (String) -> Unit,
+    onExpiredDateValueChange: (String) -> Unit
+) {
     Box(modifier = Modifier.padding(paddingValues)) {
-        CardInputView()
+        CardInputView(
+            state,
+            onCardNumberValueChange = onCardNumberValueChange,
+            onExpiredDateValueChange = onExpiredDateValueChange,
+            onKeypad = onKeypad
+        )
     }
 }
 
 @Composable
-private fun CardInputView() {
+private fun CardInputView(
+    state: AddingCardState,
+    onCardNumberValueChange: (String) -> Unit,
+    onExpiredDateValueChange: (String) -> Unit,
+    onKeypad: (KeypadKey) -> Unit,
+) {
 
     Column(
         modifier = Modifier
@@ -116,23 +146,21 @@ private fun CardInputView() {
                 .background(CardBackgroundColor, shape = roundedShape16)
                 .padding(8.dp)
         ) {
-            var text1 by remember { mutableStateOf("0000 0000 0000 0000") }
-            var text2 by remember { mutableStateOf("00/00") }
 
             Column {
                 OutlinedTextField(
-                    value = text1,
-                    onValueChange = { text1 = it },
+                    value = state.cardNumber,
+                    onValueChange = onCardNumberValueChange,
                     shape = roundedShape16,
                     modifier = Modifier.fillMaxWidth(),
-                    enabled = false
+                    readOnly = true
                 )
                 OutlinedTextField(
-                    value = text2,
-                    onValueChange = { text2 = it },
+                    value = state.expiredDate,
+                    onValueChange = onExpiredDateValueChange,
                     shape = roundedShape16,
                     modifier = Modifier.width(100.dp),
-                    enabled = false
+                    readOnly = true
                 )
             }
         }
@@ -142,7 +170,7 @@ private fun CardInputView() {
                 .fillMaxWidth()
                 .height(48.dp),
             content = {
-                Text("Save", color = White)
+                Text(stringResource(R.string.save), color = White)
             }, onClick = {
 
             },
@@ -152,7 +180,7 @@ private fun CardInputView() {
             )
         )
         Spacer32()
-        NumberKeyboardView { }
+        NumberKeyboardView(onKeypad = onKeypad)
 
     }
 
@@ -165,8 +193,6 @@ private fun AddingCardTopBar(
     onClickBack: () -> Unit,
 ) {
     Column {
-
-        SpacerStatusBarPadding()
         Row(
             modifier = Modifier
                 .fillMaxWidth()
