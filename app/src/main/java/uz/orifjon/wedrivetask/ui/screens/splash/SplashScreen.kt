@@ -1,9 +1,54 @@
 package uz.orifjon.wedrivetask.ui.screens.splash
 
-import android.window.SplashScreen
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color.Companion.Black
+import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.navigation.NavController
+import kotlinx.serialization.Serializable
+import org.koin.androidx.compose.koinViewModel
+import uz.orifjon.wedrivetask.ui.screens.home.HomeRoute
+import uz.orifjon.wedrivetask.ui.screens.login.LoginRoute
+import uz.orifjon.wedrivetask.ui.screens.login.LoginScreen
+import uz.orifjon.wedrivetask.utils.extensions.navigateAndClearStack
+
+
+@Serializable
+data object SplashRoute
 
 @Composable
-fun SplashScreen(){
+fun SplashScreen(
+    navController: NavController,
+    viewModel: SplashViewModel = koinViewModel()
+) {
+
+    LaunchedEffect(Unit) {
+        viewModel.events.collect { event ->
+            when (event) {
+                SplashEvent.HasPhoneNumber -> {
+                    navController.navigateAndClearStack(HomeRoute)
+                }
+
+                SplashEvent.ShouldLogIn -> {
+                    navController.navigateAndClearStack(LoginRoute)
+                }
+            }
+        }
+    }
+
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Black)
+    ) {
+        Text("WeDrive", color = White)
+    }
+
 
 }

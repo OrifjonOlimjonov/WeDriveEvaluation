@@ -159,7 +159,7 @@ private fun CardInputView(
                 }) {
                     OutlinedTextField(
                         value = state.cardNumber,
-                        onValueChange = {  },
+                        onValueChange = { },
                         shape = roundedShape16,
                         modifier = Modifier.fillMaxWidth(),
                         readOnly = true,
@@ -174,7 +174,7 @@ private fun CardInputView(
                 }) {
                     OutlinedTextField(
                         value = state.expiredDate,
-                        onValueChange = {  },
+                        onValueChange = { },
                         shape = roundedShape16,
                         modifier = Modifier.width(100.dp),
                         readOnly = true,

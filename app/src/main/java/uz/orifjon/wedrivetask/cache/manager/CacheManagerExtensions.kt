@@ -1,4 +1,4 @@
-package uz.orifjon.wedrivetask.cache
+package uz.orifjon.wedrivetask.cache.manager
 
 import android.content.Context
 import android.content.SharedPreferences

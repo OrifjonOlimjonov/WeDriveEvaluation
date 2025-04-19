@@ -5,9 +5,9 @@ import io.ktor.client.request.setBody
 import uz.orifjon.wedrivetask.data.models.promo.PromoRequest
 import uz.orifjon.wedrivetask.utils.extensions.postJson
 
-class ApiPromoServiceImpl(
+class ApiPromoCodeServiceImpl(
     private val httpClient: HttpClient
-) : ApiPromoService {
+) : ApiPromoCodeService {
     override suspend fun addPromo(promoRequest: PromoRequest) {
         httpClient.postJson<Unit>(POST_PROMO_CODE){
             setBody(promoRequest)

@@ -1,4 +1,4 @@
-package uz.orifjon.wedrivetask.cache
+package uz.orifjon.wedrivetask.cache.manager
 interface CacheManager {
 
     fun readString(key: String, defaultValue: String?): String?

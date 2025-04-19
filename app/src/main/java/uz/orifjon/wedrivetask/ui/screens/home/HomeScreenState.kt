@@ -5,4 +5,5 @@ import androidx.compose.runtime.Immutable
 @Immutable
 data class HomeScreenState(
     val isLoading: Boolean = false,
+    val promoCodeBottomSheetState: Boolean = false
 )

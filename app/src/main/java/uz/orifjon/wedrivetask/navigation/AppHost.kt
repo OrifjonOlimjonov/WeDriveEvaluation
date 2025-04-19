@@ -16,10 +16,12 @@ fun AppHost(
     navController: NavHostController
 ) {
 
-    NavHost(navController = navController,
-       enterTransition = { fadeIn(animationSpec = tween(TRANSITION_ANIMATION_DURATION_IN_MS)) },
+    NavHost(
+        navController = navController,
+        enterTransition = { fadeIn(animationSpec = tween(TRANSITION_ANIMATION_DURATION_IN_MS)) },
         exitTransition = { fadeOut(animationSpec = tween(TRANSITION_ANIMATION_DURATION_IN_MS)) },
-        startDestination = HomeGraph) {
+        startDestination = HomeGraph
+    ) {
         setHomeGraph(navController)
     }
 

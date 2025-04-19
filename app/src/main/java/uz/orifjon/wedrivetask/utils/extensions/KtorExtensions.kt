@@ -24,7 +24,7 @@ suspend inline fun <reified T> HttpClient.postJson(
         url.takeFrom(urlAddress)
         block()
     }
-    if (response.status == HttpStatusCode.OK) {
+    if (response.status >= HttpStatusCode.OK || response.status <= HttpStatusCode.MultipleChoices) {
         return response.body()
     } else {
         throw ServerResponseException(response, response.bodyAsText())

@@ -87,7 +87,6 @@ dependencies {
 
 
     //Chucker
-
     debugImplementation(libs.chuckerteam.chucker.debug)
     releaseImplementation(libs.chuckerteam.chucker.release)
 }
