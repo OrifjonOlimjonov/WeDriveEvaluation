@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchColors
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -22,6 +24,7 @@ import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import uz.orifjon.wedrivetask.R
+import uz.orifjon.wedrivetask.ui.theme.SwitchUncheckedColor
 import uz.orifjon.wedrivetask.ui.theme.roundedShape12
 
 @Composable
@@ -53,12 +56,26 @@ fun PaymentTypeView(
             Spacer8()
             Text(text = text, color = Black)
             FillEmptySpace()
-            Switch(
+            CustomSwitch(
                 checked = checked.value,
-                onCheckedChange = {
-                    checked.value = it
-                }
+                onCheckedChange = { checked.value = it },
             )
+//            Switch(
+//                checked = checked.value,
+//                onCheckedChange = {
+//                    checked.value = it
+//                },
+//                colors = SwitchDefaults.colors(
+//                    checkedIconColor = Black,
+//                    checkedBorderColor = Black,
+//                    checkedThumbColor = White,
+//                    checkedTrackColor = Black,
+//                    uncheckedIconColor = SwitchUncheckedColor,
+//                    uncheckedTrackColor = SwitchUncheckedColor,
+//                    uncheckedThumbColor = White,
+//                    uncheckedBorderColor = SwitchUncheckedColor
+//                )
+//            )
             Spacer8()
         }
     }

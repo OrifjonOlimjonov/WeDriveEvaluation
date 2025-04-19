@@ -14,3 +14,6 @@ val CardStartColor = Color(0xFF1B1B1B)
 val CardEndColor = Color(0xFF3C3C3C)
 val White80 = Color(0xCCFFFFFF)
 val CardBackgroundColor = Color(0xFFF7F8FC)
+
+
+val SwitchUncheckedColor = Color(0xFFECEDF1)
