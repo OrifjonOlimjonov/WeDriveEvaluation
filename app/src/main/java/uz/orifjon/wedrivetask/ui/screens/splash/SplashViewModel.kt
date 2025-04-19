@@ -17,9 +17,9 @@ class SplashViewModel(
 
         viewModelScope.launch {
             if (userPreferences.phoneNumber == null) {
-                _events.send(SplashEvent.HasPhoneNumber)
-            } else {
                 _events.send(SplashEvent.ShouldLogIn)
+            } else {
+                _events.send(SplashEvent.HasPhoneNumber)
             }
         }
 
