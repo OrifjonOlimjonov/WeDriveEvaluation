@@ -7,6 +7,5 @@ interface ApiWalletService {
 
     suspend fun getWallet(): WalletResponse
 
-
     suspend fun putActiveMethod(paymentMethodRequest: PaymentMethodRequest)
 }

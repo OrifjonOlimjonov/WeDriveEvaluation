@@ -7,6 +7,6 @@ interface ApiCardService {
 
     suspend fun getCards(): List<CardResponse>
 
-    suspend fun addCard(cardRequest: CardRequest)
+    suspend fun addCard(cardRequest: CardRequest): CardResponse
 
 }

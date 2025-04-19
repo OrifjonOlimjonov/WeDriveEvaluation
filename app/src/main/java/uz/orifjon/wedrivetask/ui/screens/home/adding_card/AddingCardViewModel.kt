@@ -5,6 +5,7 @@ import uz.orifjon.wedrivetask.ui.core.keyboards.KeypadKey
 import uz.orifjon.wedrivetask.utils.BaseViewModel
 
 class AddingCardViewModel(
+
 ) : BaseViewModel<AddingCardState, Any>(AddingCardState()) {
 
     fun changeInputDataType(type: AddingType) {

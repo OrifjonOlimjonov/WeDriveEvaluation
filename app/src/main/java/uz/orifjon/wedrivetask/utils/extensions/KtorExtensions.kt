@@ -69,21 +69,3 @@ suspend inline fun <reified T> HttpClient.getJson(
         )
     }
 }
-
-
-
-suspend inline fun <reified T> HttpClient.deleteJson(
-    urlAddress: String,
-    block: HttpRequestBuilder.() -> Unit = {}
-): T {
-    val response = delete {
-        contentType(ContentType.Application.Json)
-        url.takeFrom(urlAddress)
-        block()
-    }
-    if (response.status == HttpStatusCode.OK) {
-        return response.body()
-    } else {
-        throw ServerResponseException(response, response.bodyAsText())
-    }
-}

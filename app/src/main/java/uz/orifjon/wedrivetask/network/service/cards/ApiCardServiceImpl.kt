@@ -13,11 +13,10 @@ class ApiCardServiceImpl(
 
     override suspend fun getCards(): List<CardResponse> = httpClient.getJson(GET_CARDS)
 
-    override suspend fun addCard(cardRequest: CardRequest) {
-        httpClient.postJson<Unit>(POST_CARDS) {
+    override suspend fun addCard(cardRequest: CardRequest) =
+        httpClient.postJson<CardResponse>(POST_CARDS) {
             setBody(cardRequest)
         }
-    }
 
 
 }
