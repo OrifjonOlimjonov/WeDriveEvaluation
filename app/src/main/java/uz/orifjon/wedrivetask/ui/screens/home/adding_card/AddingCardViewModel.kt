@@ -8,17 +8,39 @@ class AddingCardViewModel(
 
 ) : BaseViewModel<AddingCardState, Any>(AddingCardState()) {
 
-    fun changeExpiredDateValue(expiredDate: String) =
-        _state.update { it.copy(expiredDate = expiredDate) }
-
-    fun changeCardNumberValue(cardNumber: String) =
-        _state.update { it.copy(cardNumber = cardNumber) }
+    fun changeInputDataType(type: AddingType) {
+        _state.update { it.copy(addingType = type) }
+    }
 
 
+    fun onKeypadKey(keypadKey: KeypadKey) {
 
-    fun onKeypadKey(keypadKey: KeypadKey){
+        var oldValue =
+            if (state.value.addingType == AddingType.CARD) state.value.cardNumber else state.value.expiredDate
+        val newValue = when (keypadKey) {
+            KeypadKey.Delete -> {
+                if (oldValue.length == 1) {
+                    _state.update {
+                        it.copy(
 
+                        )
+                    }
+                    return
+                }
+                oldValue.dropLast(1)
+            }
 
+            is KeypadKey.Number -> {
+                oldValue.plus(keypadKey.number)
+            }
 
+            else -> ""
+        }
+
+        if (state.value.addingType == AddingType.CARD) {
+            _state.update { it.copy(cardNumber = newValue) }
+        } else {
+            _state.update { it.copy(expiredDate = newValue) }
+        }
     }
 }

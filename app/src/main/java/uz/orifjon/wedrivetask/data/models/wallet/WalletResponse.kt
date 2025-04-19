@@ -1,7 +1,6 @@
-package uz.orifjon.wedrivetask.data.models
+package uz.orifjon.wedrivetask.data.models.wallet
 
 import kotlinx.serialization.Serializable
-
 
 @Serializable
 data class WalletResponse(

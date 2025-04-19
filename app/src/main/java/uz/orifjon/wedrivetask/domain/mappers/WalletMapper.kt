@@ -1,6 +1,6 @@
 package uz.orifjon.wedrivetask.domain.mappers
 
-import uz.orifjon.wedrivetask.data.models.WalletResponse
+import uz.orifjon.wedrivetask.data.models.wallet.WalletResponse
 import uz.orifjon.wedrivetask.domain.models.Wallet
 
 

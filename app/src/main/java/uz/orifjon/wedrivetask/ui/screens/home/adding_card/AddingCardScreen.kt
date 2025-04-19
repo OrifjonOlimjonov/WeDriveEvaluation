@@ -2,6 +2,7 @@ package uz.orifjon.wedrivetask.ui.screens.home.adding_card
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -59,6 +60,7 @@ import uz.orifjon.wedrivetask.ui.core.AppBar
 import uz.orifjon.wedrivetask.ui.core.CardView
 import uz.orifjon.wedrivetask.ui.core.FillEmptySpace
 import uz.orifjon.wedrivetask.ui.core.IdentificationRequiredView
+import uz.orifjon.wedrivetask.ui.core.MaskVisualTransformation
 import uz.orifjon.wedrivetask.ui.core.Spacer16
 import uz.orifjon.wedrivetask.ui.core.Spacer32
 import uz.orifjon.wedrivetask.ui.core.Spacer8
@@ -69,6 +71,10 @@ import uz.orifjon.wedrivetask.ui.theme.CardBackgroundColor
 import uz.orifjon.wedrivetask.ui.theme.roundedShape12
 import uz.orifjon.wedrivetask.ui.theme.roundedShape16
 import uz.orifjon.wedrivetask.ui.theme.roundedShape5
+
+
+const val CARD_NUMBER = "#### #### #### ####"
+const val EXPIRED_DATE = "##/##"
 
 
 @Serializable
@@ -93,8 +99,8 @@ fun AddingCardScreen(
                 paddingValues,
                 state = state,
                 onKeypad = viewModel::onKeypadKey,
-                onCardNumberValueChange = viewModel::changeCardNumberValue,
-                onExpiredDateValueChange = viewModel::changeExpiredDateValue
+                onCardNumberValueChange = viewModel::changeInputDataType,
+                onExpiredDateValueChange = viewModel::changeInputDataType
             )
         }
     )
@@ -107,8 +113,8 @@ fun AddingCardScreen(
 fun AddingCardContent(
     paddingValues: PaddingValues, state: AddingCardState,
     onKeypad: (KeypadKey) -> Unit,
-    onCardNumberValueChange: (String) -> Unit,
-    onExpiredDateValueChange: (String) -> Unit
+    onCardNumberValueChange: (AddingType) -> Unit,
+    onExpiredDateValueChange: (AddingType) -> Unit
 ) {
     Box(modifier = Modifier.padding(paddingValues)) {
         CardInputView(
@@ -123,8 +129,8 @@ fun AddingCardContent(
 @Composable
 private fun CardInputView(
     state: AddingCardState,
-    onCardNumberValueChange: (String) -> Unit,
-    onExpiredDateValueChange: (String) -> Unit,
+    onCardNumberValueChange: (AddingType) -> Unit,
+    onExpiredDateValueChange: (AddingType) -> Unit,
     onKeypad: (KeypadKey) -> Unit,
 ) {
 
@@ -148,20 +154,36 @@ private fun CardInputView(
         ) {
 
             Column {
-                OutlinedTextField(
-                    value = state.cardNumber,
-                    onValueChange = onCardNumberValueChange,
-                    shape = roundedShape16,
-                    modifier = Modifier.fillMaxWidth(),
-                    readOnly = true
-                )
-                OutlinedTextField(
-                    value = state.expiredDate,
-                    onValueChange = onExpiredDateValueChange,
-                    shape = roundedShape16,
-                    modifier = Modifier.width(100.dp),
-                    readOnly = true
-                )
+                Box(modifier = Modifier.clickable {
+                    onCardNumberValueChange(AddingType.CARD)
+                }) {
+                    OutlinedTextField(
+                        value = state.cardNumber,
+                        onValueChange = {  },
+                        shape = roundedShape16,
+                        modifier = Modifier.fillMaxWidth(),
+                        readOnly = true,
+                        placeholder = {
+                            Text("0000 0000 0000 0000")
+                        },
+                        visualTransformation = MaskVisualTransformation(CARD_NUMBER)
+                    )
+                }
+                Box(modifier = Modifier.clickable {
+                    onExpiredDateValueChange(AddingType.EXPIRED_DATE)
+                }) {
+                    OutlinedTextField(
+                        value = state.expiredDate,
+                        onValueChange = {  },
+                        shape = roundedShape16,
+                        modifier = Modifier.width(100.dp),
+                        readOnly = true,
+                        placeholder = {
+                            Text("12/25")
+                        },
+                        visualTransformation = MaskVisualTransformation(EXPIRED_DATE)
+                    )
+                }
             }
         }
         FillEmptySpace()

@@ -60,22 +60,6 @@ fun PaymentTypeView(
                 checked = checked.value,
                 onCheckedChange = { checked.value = it },
             )
-//            Switch(
-//                checked = checked.value,
-//                onCheckedChange = {
-//                    checked.value = it
-//                },
-//                colors = SwitchDefaults.colors(
-//                    checkedIconColor = Black,
-//                    checkedBorderColor = Black,
-//                    checkedThumbColor = White,
-//                    checkedTrackColor = Black,
-//                    uncheckedIconColor = SwitchUncheckedColor,
-//                    uncheckedTrackColor = SwitchUncheckedColor,
-//                    uncheckedThumbColor = White,
-//                    uncheckedBorderColor = SwitchUncheckedColor
-//                )
-//            )
             Spacer8()
         }
     }

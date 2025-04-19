@@ -1,9 +1,9 @@
 package uz.orifjon.wedrivetask.ui.screens.home.adding_card
 
 data class AddingCardState(
-    val cardNumber: String = "0000 0000 0000 0000",
-    val expiredDate: String = "12/25",
-    val addingType: AddingType = AddingType.CARD
+    val cardNumber: String = "",
+    val expiredDate: String = "",
+    val addingType: AddingType = AddingType.EXPIRED_DATE
 )
 
 
