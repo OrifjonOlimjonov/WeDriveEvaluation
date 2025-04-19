@@ -1,5 +1,7 @@
 package uz.orifjon.wedrivetask.ui.screens.home
 
+import android.content.pm.Checksum
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,11 +13,13 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.graphics.colorspace.WhitePoint
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -23,6 +27,8 @@ import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 import org.koin.androidx.compose.koinViewModel
 import uz.orifjon.wedrivetask.R
+import uz.orifjon.wedrivetask.domain.mappers.PaymentType
+import uz.orifjon.wedrivetask.domain.models.Wallet
 import uz.orifjon.wedrivetask.ui.core.AddMenuItem
 import uz.orifjon.wedrivetask.ui.core.AppBar
 import uz.orifjon.wedrivetask.ui.core.BottomSheetShape
@@ -47,9 +53,24 @@ fun HomeScreen(
 ) {
 
     val state = viewModel.state.collectAsState()
-
+    val context = LocalContext.current
     val promoCodeBottomSheetState = rememberModalBottomSheetState(true)
     val coroutineScope = rememberCoroutineScope()
+
+
+    LaunchedEffect(Unit) {
+        viewModel.events.collect { event ->
+            when (event) {
+                HomeScreenEvent.AfterFailurePromoCode -> {
+                    Toast.makeText(context, "Promo code failed", Toast.LENGTH_LONG).show()
+                }
+
+                HomeScreenEvent.AfterSuccessPromoCode -> {
+                    Toast.makeText(context, "Promo code activated", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+    }
 
     if (state.value.promoCodeBottomSheetState) {
         BottomSheetShape(
@@ -118,11 +139,17 @@ private fun MainContent(
             icon = R.drawable.ic_promokod,
             onClickListener = onPromoCodeBottomSheet
         )
-        PaymentTypeView(icon = R.drawable.ic_cash, text = stringResource(R.string.cash)) {}
+        PaymentTypeView(
+            icon = R.drawable.ic_cash, text = stringResource(R.string.cash),
+        ) {
+
+        }
         PaymentTypeView(
             icon = R.drawable.ic_card,
             text = stringResource(R.string.card_with_last_number, "7777")
-        ) {}
+        ) {
+
+        }
         AddMenuItem(
             text = R.string.add_new_card,
             icon = R.drawable.ic_add_card,

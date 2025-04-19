@@ -25,11 +25,12 @@ import uz.orifjon.wedrivetask.ui.theme.roundedShape12
 @Composable
 fun PaymentTypeView(
     modifier: Modifier = Modifier,
+    checked: Boolean= false,
     text: String = "",
     icon: Int = R.drawable.ic_cash,
     onCheckedChanged: (Boolean) -> Unit
 ) {
-    val checked = remember { mutableStateOf(false) }
+    val checked = remember { mutableStateOf(checked) }
     Box(
         modifier = modifier
             .clip(roundedShape12)
@@ -53,7 +54,10 @@ fun PaymentTypeView(
             FillEmptySpace()
             CustomSwitch(
                 checked = checked.value,
-                onCheckedChange = { checked.value = it },
+                onCheckedChange = { isSwitch ->
+                    onCheckedChanged(isSwitch)
+                    checked.value = isSwitch
+                },
             )
             Spacer8()
         }
