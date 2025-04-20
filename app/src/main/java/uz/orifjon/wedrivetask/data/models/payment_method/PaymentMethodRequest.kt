@@ -5,5 +5,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class PaymentMethodRequest(
     val active_method: String,
-    val active_card_id: String? = null
+    val active_card_id: Long? = null
 )

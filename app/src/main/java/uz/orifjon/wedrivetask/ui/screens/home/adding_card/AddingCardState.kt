@@ -1,6 +1,7 @@
 package uz.orifjon.wedrivetask.ui.screens.home.adding_card
 
 import androidx.compose.runtime.Immutable
+import uz.orifjon.wedrivetask.utils.AddingType
 
 @Immutable
 data class AddingCardState(
@@ -8,9 +9,3 @@ data class AddingCardState(
     val expiredDate: String = "",
     val addingType: AddingType = AddingType.CARD
 )
-
-
-enum class AddingType {
-    CARD,
-    EXPIRED_DATE
-}

@@ -1,5 +1,6 @@
 package uz.orifjon.wedrivetask.ui.screens.home.adding_card
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -34,6 +35,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
@@ -54,8 +56,11 @@ import uz.orifjon.wedrivetask.ui.core.keyboards.NumberKeyboardView
 import uz.orifjon.wedrivetask.ui.theme.CardBackgroundColor
 import uz.orifjon.wedrivetask.ui.theme.roundedShape12
 import uz.orifjon.wedrivetask.ui.theme.roundedShape16
+import uz.orifjon.wedrivetask.utils.AddingType
 import uz.orifjon.wedrivetask.utils.CARD_NUMBER
+import uz.orifjon.wedrivetask.utils.CARD_NUMBER_HINT
 import uz.orifjon.wedrivetask.utils.EXPIRED_DATE
+import uz.orifjon.wedrivetask.utils.EXPIRED_DATE_HINT
 import uz.orifjon.wedrivetask.utils.extensions.navigateBack
 
 
@@ -68,16 +73,16 @@ fun AddingCardScreen(
     viewModel: AddingCardViewModel = koinViewModel()
 ) {
 
+    val context = LocalContext.current
 
     val state = viewModel.state.collectAsState().value
 
     LaunchedEffect(Unit) {
         viewModel.events.collect { event ->
             when (event) {
-                AddingCardEvent.AfterFailedAddedNewCard -> {
-
+                is AddingCardEvent.AfterFailedAddedNewCard -> {
+                    Toast.makeText(context, event.message, Toast.LENGTH_SHORT).show()
                 }
-
                 is AddingCardEvent.AfterSuccessfullyAddedNewCard -> {
                     navController.navigateBack(
                         AddingCardNavResult(
@@ -110,7 +115,7 @@ fun AddingCardScreen(
 
 
 @Composable
-fun AddingCardContent(
+private fun AddingCardContent(
     paddingValues: PaddingValues, state: AddingCardState,
     enabled: Boolean,
     onClickSave: () -> Unit,
@@ -162,7 +167,7 @@ private fun CardInputView(
                 onValueChange = { },
                 onEdit = { onChangeValueType(AddingType.CARD) },
                 enabled = false,
-                hint = "0000 0000 0000 0000",
+                hint = CARD_NUMBER_HINT,
                 visualTransformation = MaskVisualTransformation(CARD_NUMBER),
                 inputType = AddingType.CARD
             )
@@ -172,7 +177,7 @@ private fun CardInputView(
                 onValueChange = { },
                 onEdit = { onChangeValueType(AddingType.EXPIRED_DATE) },
                 enabled = false,
-                hint = "12/25",
+                hint = EXPIRED_DATE_HINT,
                 visualTransformation = MaskVisualTransformation(EXPIRED_DATE),
                 inputType = AddingType.EXPIRED_DATE
             )
@@ -226,7 +231,7 @@ private fun AddingCardTopBar(
             }
             Spacer8()
             Text(
-                "Add Card",
+                stringResource(R.string.add_card),
                 color = Black,
                 fontSize = 18.sp,
                 fontFamily = FontFamily(Font(R.font.figtree_medium))
@@ -237,7 +242,7 @@ private fun AddingCardTopBar(
 
 
 @Composable
-fun ItemDataInputTextField(
+private fun ItemDataInputTextField(
     value: String,
     modifier: Modifier = Modifier,
     isWriting: Boolean = false,

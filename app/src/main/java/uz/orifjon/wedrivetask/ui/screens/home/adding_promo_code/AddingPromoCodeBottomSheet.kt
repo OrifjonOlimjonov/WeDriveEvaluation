@@ -17,6 +17,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -42,7 +43,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import uz.orifjon.wedrivetask.R
 import uz.orifjon.wedrivetask.ui.core.Spacer16
+import uz.orifjon.wedrivetask.ui.core.Spacer4
 import uz.orifjon.wedrivetask.ui.core.Spacer8
+import uz.orifjon.wedrivetask.ui.theme.figtreeMedium
 import uz.orifjon.wedrivetask.ui.theme.roundedShape12
 
 @Composable
@@ -79,10 +82,10 @@ fun AddingPromoCodeBottomSheet(
                 }
                 Spacer8()
                 Text(
-                    "Enter Promo Code",
+                    stringResource(R.string.enter_promo_code),
                     color = Black,
                     fontSize = 18.sp,
-                    fontFamily = FontFamily(Font(R.font.figtree_medium))
+                    fontFamily = figtreeMedium
                 )
             }
             Box(modifier = Modifier.padding(16.dp)) {
@@ -102,8 +105,8 @@ fun AddingPromoCodeBottomSheet(
                         decorationBox = { innerTextField ->
                             Column {
                                 innerTextField()
-                                Spacer(modifier = Modifier.height(4.dp))
-                                Divider(color = Black, thickness = 1.dp)
+                                Spacer4()
+                                HorizontalDivider(color = Black, thickness = 1.dp)
                             }
                         },
                         keyboardOptions = KeyboardOptions(

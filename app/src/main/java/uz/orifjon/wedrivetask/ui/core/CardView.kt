@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import uz.orifjon.wedrivetask.ui.theme.CardEndColor
 import uz.orifjon.wedrivetask.ui.theme.CardStartColor
+import uz.orifjon.wedrivetask.ui.theme.figtreeMedium
 import uz.orifjon.wedrivetask.ui.theme.roundedShape16
 
 @Composable
@@ -43,22 +44,22 @@ fun CardView(
             )
     ) {
         Column(
+            modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.Start
         ) {
             Text(
-                title, color = White, modifier = Modifier
-                    .padding(top = 8.dp, start = 8.dp)
-//                    .align(Alignment.TopStart)
+                title, color = White,
+                modifier = Modifier,
+                fontSize = 14.sp
             )
 
             Text(
                 textBody,
                 color = White,
                 fontSize = 18.sp,
-                modifier = Modifier
-                    .padding(start = 8.dp)
-//                    .align(alignment = Alignment.CenterStart)
+                modifier = Modifier,
+                fontFamily = figtreeMedium
             )
         }
 

@@ -8,8 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,7 +28,6 @@ fun PaymentTypeView(
     icon: Int = R.drawable.ic_cash,
     onCheckedChanged: (Boolean) -> Unit
 ) {
-    val checked = remember { mutableStateOf(checked) }
     Box(
         modifier = modifier
             .clip(roundedShape12)
@@ -53,10 +50,9 @@ fun PaymentTypeView(
             Text(text = text, color = Black)
             FillEmptySpace()
             CustomSwitch(
-                checked = checked.value,
+                checked = checked,
                 onCheckedChange = { isSwitch ->
                     onCheckedChanged(isSwitch)
-                    checked.value = isSwitch
                 },
             )
             Spacer8()

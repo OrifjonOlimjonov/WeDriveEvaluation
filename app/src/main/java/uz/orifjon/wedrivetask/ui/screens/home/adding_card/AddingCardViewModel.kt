@@ -6,6 +6,7 @@ import kotlinx.coroutines.launch
 import uz.orifjon.wedrivetask.data.repository.CardRepository
 import uz.orifjon.wedrivetask.domain.models.Card
 import uz.orifjon.wedrivetask.ui.core.keyboards.KeypadKey
+import uz.orifjon.wedrivetask.utils.AddingType
 import uz.orifjon.wedrivetask.utils.BaseViewModel
 import uz.orifjon.wedrivetask.utils.extensions.resultOf
 
@@ -56,7 +57,7 @@ class AddingCardViewModel(
             }.onSuccess { newCard ->
                 _events.send(AddingCardEvent.AfterSuccessfullyAddedNewCard(newCard))
             }.onFailure {
-                _events.send(AddingCardEvent.AfterFailedAddedNewCard)
+                _events.send(AddingCardEvent.AfterFailedAddedNewCard(it.message.toString()))
             }
         }
     }

@@ -5,9 +5,9 @@ import uz.orifjon.wedrivetask.domain.mappers.PaymentType
 
 @Serializable
 data class WalletResponse(
-    val active_card_id: Int,
+    val active_card_id: Long?,
     val active_method: PaymentType,
-    val balance: Long,
+    val balance: Double,
     val id: Int,
     val phone: String
 )

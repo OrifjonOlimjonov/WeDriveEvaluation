@@ -7,4 +7,12 @@
     <string name="card_with_last_number">Card **** %s</string>
     <string name="cash">Cash</string>
     <string name="save">Save</string>
+    <string name="login">Login</string>
+    <string name="we_drive">WeDrive</string>
+    <string name="promo_code_failed">Promo code failed</string>
+    <string name="promo_code_activated">Promo code activated</string>
+    <string name="payment_method_change_problem">To\'lov turini o\'zgartirishda muommo bor!</string>
+    <string name="successfully_change">Muvafaqqiyatli o\'zgartirildi!</string>
+    <string name="enter_promo_code">Enter Promo code</string>
+    <string name="add_card">Add Card</string>
 </resources>

@@ -10,9 +10,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
+import kotlinx.coroutines.delay
 import kotlinx.serialization.Serializable
 import org.koin.androidx.compose.koinViewModel
+import uz.orifjon.wedrivetask.R
 import uz.orifjon.wedrivetask.ui.core.FillEmptySpace
 import uz.orifjon.wedrivetask.ui.screens.home.HomeRoute
 import uz.orifjon.wedrivetask.ui.screens.login.LoginRoute
@@ -29,7 +32,7 @@ fun SplashScreen(
 ) {
 
     LaunchedEffect(Unit) {
-//        delay(2000)
+        delay(2000)
         viewModel.events.collect { event ->
             when (event) {
                 SplashEvent.HasPhoneNumber -> {
@@ -51,7 +54,7 @@ fun SplashScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         FillEmptySpace()
-        Text("WeDrive", color = White)
+        Text(stringResource(R.string.we_drive), color = White)
         FillEmptySpace()
     }
 

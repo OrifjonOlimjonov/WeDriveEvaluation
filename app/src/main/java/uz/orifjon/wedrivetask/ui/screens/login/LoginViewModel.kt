@@ -3,14 +3,12 @@ package uz.orifjon.wedrivetask.ui.screens.login
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import uz.orifjon.wedrivetask.cache.preferences.UserPreferences
 import uz.orifjon.wedrivetask.data.repository.UserRepository
 import uz.orifjon.wedrivetask.utils.BaseViewModel
 import uz.orifjon.wedrivetask.utils.extensions.resultOf
 
 class LoginViewModel(
-    private val userRepository: UserRepository,
-    private val userPreferences: UserPreferences
+    private val userRepository: UserRepository
 ) : BaseViewModel<LoginState, LoginEvent>(LoginState()) {
 
     fun changePhoneNumber(phoneNumber: String) {
@@ -29,6 +27,5 @@ class LoginViewModel(
         }
     }
 
-    fun getTokenFromCache() = userPreferences.phoneNumber
 
 }

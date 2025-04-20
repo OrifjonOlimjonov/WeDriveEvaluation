@@ -15,9 +15,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import kotlinx.serialization.Serializable
 import org.koin.androidx.compose.koinViewModel
+import uz.orifjon.wedrivetask.R
 import uz.orifjon.wedrivetask.ui.screens.home.HomeRoute
 import uz.orifjon.wedrivetask.utils.extensions.navigateAndClearStack
 
@@ -61,7 +63,7 @@ fun LoginScreen(
             Button(onClick = {
                 viewModel.login()
             }) {
-                Text("Login")
+                Text(stringResource(R.string.login))
             }
         }
     }
