@@ -1,9 +1,9 @@
 package uz.orifjon.wedrivetask.ui.screens.home
 
 import androidx.compose.runtime.Immutable
-import uz.orifjon.wedrivetask.domain.mappers.PaymentType
 import uz.orifjon.wedrivetask.domain.models.Card
 import uz.orifjon.wedrivetask.domain.models.Wallet
+import uz.orifjon.wedrivetask.utils.PaymentType
 
 @Immutable
 data class HomeScreenState(

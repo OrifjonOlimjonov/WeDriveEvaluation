@@ -14,8 +14,3 @@ fun WalletResponse.toDomain() = Wallet(
     balance = balance,
     phone = phone
 )
-
-enum class PaymentType{
-    card,
-    cash
-}

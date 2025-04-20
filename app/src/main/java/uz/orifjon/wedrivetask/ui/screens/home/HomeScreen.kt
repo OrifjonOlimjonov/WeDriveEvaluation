@@ -29,7 +29,6 @@ import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 import org.koin.androidx.compose.koinViewModel
 import uz.orifjon.wedrivetask.R
-import uz.orifjon.wedrivetask.domain.mappers.PaymentType
 import uz.orifjon.wedrivetask.ui.core.AddMenuItem
 import uz.orifjon.wedrivetask.ui.core.AppBar
 import uz.orifjon.wedrivetask.ui.core.BottomSheetShape
@@ -41,6 +40,7 @@ import uz.orifjon.wedrivetask.ui.screens.home.adding_card.AddingCardNavResult
 import uz.orifjon.wedrivetask.ui.screens.home.adding_card.AddingCardRoute
 import uz.orifjon.wedrivetask.ui.screens.home.adding_promo_code.AddingPromoCodeBottomSheet
 import uz.orifjon.wedrivetask.utils.DEFAULT_BALANCE
+import uz.orifjon.wedrivetask.utils.PaymentType
 import uz.orifjon.wedrivetask.utils.extensions.formatPrice
 import uz.orifjon.wedrivetask.utils.extensions.onNavResult
 
