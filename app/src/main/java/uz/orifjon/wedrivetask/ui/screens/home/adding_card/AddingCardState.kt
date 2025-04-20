@@ -6,7 +6,7 @@ import androidx.compose.runtime.Immutable
 data class AddingCardState(
     val cardNumber: String = "",
     val expiredDate: String = "",
-    val addingType: AddingType = AddingType.EXPIRED_DATE
+    val addingType: AddingType = AddingType.CARD
 )
 
 

@@ -36,9 +36,11 @@ import uz.orifjon.wedrivetask.ui.core.CardView
 import uz.orifjon.wedrivetask.ui.core.IdentificationRequiredView
 import uz.orifjon.wedrivetask.ui.core.PaymentTypeView
 import uz.orifjon.wedrivetask.ui.core.Spacer8
+import uz.orifjon.wedrivetask.ui.screens.home.adding_card.AddingCardNavResult
 import uz.orifjon.wedrivetask.ui.screens.home.adding_card.AddingCardRoute
 import uz.orifjon.wedrivetask.ui.screens.home.adding_card.AddingCardScreen
 import uz.orifjon.wedrivetask.ui.screens.home.adding_promo_code.AddingPromoCodeBottomSheet
+import uz.orifjon.wedrivetask.utils.extensions.onNavResult
 
 
 @Serializable
@@ -56,6 +58,11 @@ fun HomeScreen(
     val context = LocalContext.current
     val promoCodeBottomSheetState = rememberModalBottomSheetState(true)
     val coroutineScope = rememberCoroutineScope()
+
+
+    navController.onNavResult<AddingCardNavResult> { result ->
+        viewModel.updateCardList(result.card)
+    }
 
 
     LaunchedEffect(Unit) {

@@ -4,6 +4,6 @@ import uz.orifjon.wedrivetask.domain.models.Card
 
 interface CardRepository {
 
-    suspend fun addCard(card:Card): Card
+    suspend fun addCard(cardNumber:String,expiredDate: String): Card
 
 }

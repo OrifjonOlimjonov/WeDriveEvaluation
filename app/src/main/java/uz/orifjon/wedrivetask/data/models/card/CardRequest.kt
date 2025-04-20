@@ -5,5 +5,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class CardRequest(
     val number: String,
-    val expired_date: String
+    val expire_date: String
 )

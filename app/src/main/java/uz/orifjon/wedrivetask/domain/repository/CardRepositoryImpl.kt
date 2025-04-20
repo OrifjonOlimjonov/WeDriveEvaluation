@@ -1,8 +1,8 @@
 package uz.orifjon.wedrivetask.domain.repository
 
+import uz.orifjon.wedrivetask.data.models.card.CardRequest
 import uz.orifjon.wedrivetask.data.repository.CardRepository
 import uz.orifjon.wedrivetask.domain.mappers.toDomain
-import uz.orifjon.wedrivetask.domain.mappers.toRequest
 import uz.orifjon.wedrivetask.domain.models.Card
 import uz.orifjon.wedrivetask.network.service.cards.ApiCardService
 
@@ -10,10 +10,14 @@ class CardRepositoryImpl(
     private val apiCardService: ApiCardService
 ) : CardRepository {
 
+    override suspend fun addCard(
+        cardNumber: String,
+        expiredDate: String
+    ): Card {
+        val expiredDate = expiredDate.chunked(2).joinToString("/")
 
-    override suspend fun addCard(card: Card): Card {
-        val newCard = apiCardService.addCard(card.toRequest())
+        val cardResponse = apiCardService.addCard(CardRequest(cardNumber, expiredDate))
 
-        return newCard.toDomain()
+        return cardResponse.toDomain()
     }
 }

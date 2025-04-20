@@ -1,9 +1,10 @@
 package uz.orifjon.wedrivetask.domain.models
 
-import kotlinx.serialization.Serializable
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
-@Serializable
+@Parcelize
 data class Card(
     val cardNumber: String,
     val expiredDate: String
-)
+) : Parcelable

@@ -7,7 +7,7 @@ import uz.orifjon.wedrivetask.domain.models.Card
 
 fun Card.toRequest() = CardRequest(
     number = cardNumber,
-    expired_date = expiredDate
+    expire_date = expiredDate
 )
 
 

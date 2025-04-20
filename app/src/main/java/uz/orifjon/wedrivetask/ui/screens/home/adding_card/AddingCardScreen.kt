@@ -16,25 +16,17 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -44,37 +36,27 @@ import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import kotlinx.serialization.Serializable
 import org.koin.androidx.compose.koinViewModel
 import uz.orifjon.wedrivetask.R
-import uz.orifjon.wedrivetask.ui.core.AppBar
-import uz.orifjon.wedrivetask.ui.core.CardView
 import uz.orifjon.wedrivetask.ui.core.FillEmptySpace
-import uz.orifjon.wedrivetask.ui.core.IdentificationRequiredView
 import uz.orifjon.wedrivetask.ui.core.MaskVisualTransformation
 import uz.orifjon.wedrivetask.ui.core.Spacer16
 import uz.orifjon.wedrivetask.ui.core.Spacer32
 import uz.orifjon.wedrivetask.ui.core.Spacer8
-import uz.orifjon.wedrivetask.ui.core.SpacerStatusBarPadding
 import uz.orifjon.wedrivetask.ui.core.keyboards.KeypadKey
 import uz.orifjon.wedrivetask.ui.core.keyboards.NumberKeyboardView
 import uz.orifjon.wedrivetask.ui.theme.CardBackgroundColor
 import uz.orifjon.wedrivetask.ui.theme.roundedShape12
 import uz.orifjon.wedrivetask.ui.theme.roundedShape16
-import uz.orifjon.wedrivetask.ui.theme.roundedShape5
-
-
-const val CARD_NUMBER = "#### #### #### ####"
-const val EXPIRED_DATE = "##/##"
+import uz.orifjon.wedrivetask.utils.CARD_NUMBER
+import uz.orifjon.wedrivetask.utils.EXPIRED_DATE
+import uz.orifjon.wedrivetask.utils.extensions.navigateBack
 
 
 @Serializable
@@ -89,6 +71,23 @@ fun AddingCardScreen(
 
     val state = viewModel.state.collectAsState().value
 
+    LaunchedEffect(Unit) {
+        viewModel.events.collect { event ->
+            when (event) {
+                AddingCardEvent.AfterFailedAddedNewCard -> {
+
+                }
+
+                is AddingCardEvent.AfterSuccessfullyAddedNewCard -> {
+                    navController.navigateBack(
+                        AddingCardNavResult(
+                            event.newCard
+                        )
+                    )
+                }
+            }
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -98,9 +97,10 @@ fun AddingCardScreen(
             AddingCardContent(
                 paddingValues,
                 state = state,
+                onClickSave = viewModel::onClickSave,
+                enabled = viewModel.checkInputNotEmpty(),
                 onKeypad = viewModel::onKeypadKey,
-                onCardNumberValueChange = viewModel::changeInputDataType,
-                onExpiredDateValueChange = viewModel::changeInputDataType
+                onChangeValueType = viewModel::changeInputDataType
             )
         }
     )
@@ -112,15 +112,17 @@ fun AddingCardScreen(
 @Composable
 fun AddingCardContent(
     paddingValues: PaddingValues, state: AddingCardState,
+    enabled: Boolean,
+    onClickSave: () -> Unit,
     onKeypad: (KeypadKey) -> Unit,
-    onCardNumberValueChange: (AddingType) -> Unit,
-    onExpiredDateValueChange: (AddingType) -> Unit
+    onChangeValueType: (AddingType) -> Unit
 ) {
     Box(modifier = Modifier.padding(paddingValues)) {
         CardInputView(
             state,
-            onCardNumberValueChange = onCardNumberValueChange,
-            onExpiredDateValueChange = onExpiredDateValueChange,
+            enabled = enabled,
+            onClickSave = onClickSave,
+            onChangeValueType = onChangeValueType,
             onKeypad = onKeypad
         )
     }
@@ -129,8 +131,9 @@ fun AddingCardContent(
 @Composable
 private fun CardInputView(
     state: AddingCardState,
-    onCardNumberValueChange: (AddingType) -> Unit,
-    onExpiredDateValueChange: (AddingType) -> Unit,
+    enabled: Boolean,
+    onClickSave: () -> Unit,
+    onChangeValueType: (AddingType) -> Unit,
     onKeypad: (KeypadKey) -> Unit,
 ) {
 
@@ -143,48 +146,36 @@ private fun CardInputView(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Box(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(150.dp)
                 .border(2.dp, White, roundedShape16)
                 .shadow(1.dp, roundedShape16)
                 .background(CardBackgroundColor, shape = roundedShape16)
-                .padding(8.dp)
+                .padding(16.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.Start
         ) {
-
-            Column {
-                Box(modifier = Modifier.clickable {
-                    onCardNumberValueChange(AddingType.CARD)
-                }) {
-                    OutlinedTextField(
-                        value = state.cardNumber,
-                        onValueChange = { },
-                        shape = roundedShape16,
-                        modifier = Modifier.fillMaxWidth(),
-                        readOnly = true,
-                        placeholder = {
-                            Text("0000 0000 0000 0000")
-                        },
-                        visualTransformation = MaskVisualTransformation(CARD_NUMBER)
-                    )
-                }
-                Box(modifier = Modifier.clickable {
-                    onExpiredDateValueChange(AddingType.EXPIRED_DATE)
-                }) {
-                    OutlinedTextField(
-                        value = state.expiredDate,
-                        onValueChange = { },
-                        shape = roundedShape16,
-                        modifier = Modifier.width(100.dp),
-                        readOnly = true,
-                        placeholder = {
-                            Text("12/25")
-                        },
-                        visualTransformation = MaskVisualTransformation(EXPIRED_DATE)
-                    )
-                }
-            }
+            ItemDataInputTextField(
+                value = state.cardNumber,
+                onValueChange = { },
+                onEdit = { onChangeValueType(AddingType.CARD) },
+                enabled = false,
+                hint = "0000 0000 0000 0000",
+                visualTransformation = MaskVisualTransformation(CARD_NUMBER),
+                inputType = AddingType.CARD
+            )
+            Spacer16()
+            ItemDataInputTextField(
+                value = state.expiredDate,
+                onValueChange = { },
+                onEdit = { onChangeValueType(AddingType.EXPIRED_DATE) },
+                enabled = false,
+                hint = "12/25",
+                visualTransformation = MaskVisualTransformation(EXPIRED_DATE),
+                inputType = AddingType.EXPIRED_DATE
+            )
         }
         FillEmptySpace()
         Button(
@@ -193,13 +184,12 @@ private fun CardInputView(
                 .height(48.dp),
             content = {
                 Text(stringResource(R.string.save), color = White)
-            }, onClick = {
-
-            },
+            }, onClick = onClickSave,
             shape = roundedShape12,
             colors = ButtonDefaults.buttonColors(
                 containerColor = Black
-            )
+            ),
+            enabled = enabled
         )
         Spacer32()
         NumberKeyboardView(onKeypad = onKeypad)
@@ -240,6 +230,68 @@ private fun AddingCardTopBar(
                 color = Black,
                 fontSize = 18.sp,
                 fontFamily = FontFamily(Font(R.font.figtree_medium))
+            )
+        }
+    }
+}
+
+
+@Composable
+fun ItemDataInputTextField(
+    value: String,
+    modifier: Modifier = Modifier,
+    isWriting: Boolean = false,
+    hint: String,
+    onValueChange: (String) -> Unit,
+    visualTransformation: MaskVisualTransformation,
+    enabled: Boolean = true,
+    onEdit: () -> Unit,
+    inputType: AddingType
+) {
+    val textStyle = LocalTextStyle.current.copy(color = Black)
+
+    Row(
+        modifier = modifier
+            .height(40.dp)
+            .clip(roundedShape16)
+            .background(CardBackgroundColor)
+            .clickable { onEdit() }
+            .border(
+                width = if (isWriting) 1.dp else 0.dp,
+                color = if (isWriting) Black else Color.Unspecified,
+                shape = roundedShape16
+            ),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Box(
+            modifier = if (inputType == AddingType.CARD) {
+                Modifier
+                    .border(1.dp, Color.Gray, roundedShape16)
+                    .padding(horizontal = 12.dp, vertical = 8.dp)
+            } else {
+                Modifier
+                    .width(80.dp)
+                    .border(1.dp, Color.Gray, roundedShape16)
+                    .padding(horizontal = 12.dp, vertical = 8.dp)
+            }
+        ) {
+            BasicTextField(
+                value = value,
+                onValueChange = onValueChange,
+                readOnly = true,
+                visualTransformation = visualTransformation,
+                textStyle = textStyle,
+                modifier = Modifier.fillMaxWidth(),
+                decorationBox = { innerTextField ->
+                    if (value.isEmpty()) {
+                        Text(
+                            text = hint,
+                            style = textStyle.copy(color = Color.Gray)
+                        )
+                    }
+                    innerTextField()
+                },
+                enabled = enabled
             )
         }
     }

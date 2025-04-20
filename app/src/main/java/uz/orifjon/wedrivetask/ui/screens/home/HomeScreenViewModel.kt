@@ -5,6 +5,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import uz.orifjon.wedrivetask.data.repository.PromoCodeRepository
 import uz.orifjon.wedrivetask.data.repository.WalletRepository
+import uz.orifjon.wedrivetask.domain.models.Card
+import uz.orifjon.wedrivetask.ui.screens.home.adding_card.AddingCardNavResult
 import uz.orifjon.wedrivetask.utils.BaseViewModel
 import uz.orifjon.wedrivetask.utils.extensions.resultOf
 
@@ -48,6 +50,10 @@ class HomeScreenViewModel(
                 _events.send(HomeScreenEvent.AfterFailurePromoCode)
             }
         }
+    }
+
+    fun updateCardList(card: Card) {
+
     }
 
 }
