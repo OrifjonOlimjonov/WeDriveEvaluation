@@ -20,4 +20,6 @@ class CardRepositoryImpl(
 
         return cardResponse.toDomain()
     }
+
+    override suspend fun getCards(): List<Card> = apiCardService.getCards().toDomain()
 }

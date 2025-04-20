@@ -11,6 +11,7 @@ fun Card.toRequest() = CardRequest(
 )
 
 
+fun List<CardResponse>.toDomain() = map { it.toDomain() }
 
 fun CardResponse.toDomain() = Card(
     cardNumber = number,

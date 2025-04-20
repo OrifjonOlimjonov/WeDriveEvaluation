@@ -6,4 +6,6 @@ interface CardRepository {
 
     suspend fun addCard(cardNumber:String,expiredDate: String): Card
 
+
+    suspend fun getCards():List<Card>
 }

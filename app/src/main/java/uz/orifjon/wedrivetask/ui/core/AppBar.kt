@@ -14,6 +14,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -38,6 +39,7 @@ fun AppBar(
     titleStr: String = "",
     navigationIcon: Int? = null,
     onNavigationClick: () -> Unit = {},
+    scrollBehavior: TopAppBarScrollBehavior,
     actions: @Composable RowScope.() -> Unit = {}
 ) {
     TopAppBar(
@@ -46,9 +48,10 @@ fun AppBar(
         },
         navigationIcon = {
             if (navigationIcon != null) {
-                Surface(shadowElevation = 4.dp, shape = CircleShape){
+                Surface(shadowElevation = 4.dp, shape = CircleShape) {
                     IconButton(
-                        modifier = Modifier.background(White80),onClick = onNavigationClick) {
+                        modifier = Modifier.background(White80), onClick = onNavigationClick
+                    ) {
                         Icon(
                             painter = painterResource(id = navigationIcon),
                             contentDescription = null,
@@ -58,6 +61,7 @@ fun AppBar(
                 }
             }
         },
+        scrollBehavior = scrollBehavior,
         actions = actions,
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
             containerColor = White

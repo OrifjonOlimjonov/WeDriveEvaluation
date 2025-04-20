@@ -6,5 +6,5 @@ import uz.orifjon.wedrivetask.domain.models.Card
 
 @Parcelize
 data class AddingCardNavResult(
-      val card: Card
-) : Parcelable
+    val card: Card
+): Parcelable
