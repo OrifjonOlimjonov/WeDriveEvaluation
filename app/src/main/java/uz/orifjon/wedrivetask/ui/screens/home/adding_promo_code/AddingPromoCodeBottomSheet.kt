@@ -50,6 +50,7 @@ import uz.orifjon.wedrivetask.ui.theme.roundedShape12
 
 @Composable
 fun AddingPromoCodeBottomSheet(
+    onBack:()->Unit,
     onSavePromoCodeClick: (String) -> Unit
 ) {
 
@@ -76,7 +77,7 @@ fun AddingPromoCodeBottomSheet(
                         .background(White, CircleShape),
                     shape = CircleShape,
                     containerColor = White,
-                    onClick = { }
+                    onClick = onBack
                 ) {
                     Icon(painter = painterResource(R.drawable.ic_arrow_left), null, tint = Black)
                 }

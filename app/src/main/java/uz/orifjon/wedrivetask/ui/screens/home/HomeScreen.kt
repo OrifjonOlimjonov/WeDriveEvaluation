@@ -109,6 +109,8 @@ fun HomeScreen(
         ) {
             AddingPromoCodeBottomSheet(onSavePromoCodeClick = { code ->
                 viewModel.addPromoCode(code)
+            }, onBack = {
+                viewModel.onBottomSheet()
             })
         }
     }
