@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import kotlinx.coroutines.delay
 import kotlinx.serialization.Serializable
@@ -54,7 +55,7 @@ fun SplashScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         FillEmptySpace()
-        Text(stringResource(R.string.we_drive), color = White)
+        Text(stringResource(R.string.we_drive), color = White, fontSize = 24.sp)
         FillEmptySpace()
     }
 
